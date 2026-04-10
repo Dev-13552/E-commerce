@@ -16,6 +16,9 @@ app.use(cors({
     origin: allowedOrigins,
     credentials: true
 }))
+app.get("/", (req, res) =>{
+    res.send("This is the homepage")
+})
 
 app.use("/api/v1/user", userRoute)
 app.use("/api/v1/product", productRoute)
