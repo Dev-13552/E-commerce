@@ -26,6 +26,7 @@ function UserInfo() {
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
+    if (!selectedFile) return;
     setFile(selectedFile);
     setUpdateUser((updateUser) => ({
       ...updateUser,
@@ -56,7 +57,7 @@ function UserInfo() {
       }
 
       const res = await axios.put(
-        `http://localhost:8000/api/v1/user/update/${userId}`,
+        `https://e-commerce-backend-60kd.onrender.com/api/v1/user/update/${userId}`,
         formData,
         {
           headers: {

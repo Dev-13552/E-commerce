@@ -10,7 +10,7 @@ function AdminOrders() {
     const fetchOrders = async () => {
       try {
         const { data } = await axios.get(
-          "http://localhost:8000/api/v1/orders/all",
+          "https://e-commerce-backend-60kd.onrender.com/api/v1/orders/all",
           {
             headers: {
               Authorization: `Bearer ${accessToken}`,

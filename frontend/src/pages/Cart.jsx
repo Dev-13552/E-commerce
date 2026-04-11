@@ -20,7 +20,7 @@ function Cart() {
   const tax = subTotal * 0.05
   const total = subTotal + shipping + tax
 
-  const API = 'http://localhost:8000/api/v1/cart'
+  const API = 'https://e-commerce-backend-60kd.onrender.com/api/v1/cart'
   const accessToken = localStorage.getItem('accessToken')
 
   // getCart remaining

@@ -11,7 +11,7 @@ const app = express()
 const port = process.env.PORT || 3000
 
 app.use(express.json())
-const allowedOrigins = ["http://localhost:5173", "http://localhost:5174"]
+const allowedOrigins = ["http://localhost:5173", "http://localhost:5174", "https://e-commerce-woad-two-79.vercel.app"]
 app.use(cors({
     origin: allowedOrigins,
     credentials: true

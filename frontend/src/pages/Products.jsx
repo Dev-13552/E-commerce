@@ -30,7 +30,7 @@ function Products() {
     try {
       setLoading(true);
       const res = await axios.get(
-        "http://localhost:8000/api/v1/product/getAllProducts",
+        "https://e-commerce-backend-60kd.onrender.com/api/v1/product/getAllProducts",
       );
       if (res.data.success) {
         console.log(res.data.products)

@@ -11,7 +11,7 @@ function VerifyEmail() {
   const verifyEmail = async () => {
     try {
       const res = await axios.post(
-        "http://localhost:8000/api/v1/user/verify",
+        "https://e-commerce-backend-60kd.onrender.com/api/v1/user/verify",
         {},
         {
           headers: {
