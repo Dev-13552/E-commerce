@@ -38,7 +38,7 @@ function FilterSidebar({
     setSearch("");
     setCategory("All");
     setBrand("All");
-    setPriceRange([0, 9999999]);
+    setPriceRange([0, 999999]);
   };
 
   
@@ -91,7 +91,7 @@ function FilterSidebar({
           <input
             type="number"
             min={0}
-            max={5000}
+            max={20000}
             value={priceRange[0]}
             onChange={handleMinChange}
             className="w-20 p-1 border-gray-300 rounded"
@@ -99,8 +99,8 @@ function FilterSidebar({
           <span>- </span>
           <input
             type="number"
-            min={0}
-            max={9999999}
+            min={20000}
+            max={999999}
             value={priceRange[1]}
             onChange={handleMaxChange}
             className="w-20 p-1 border-gray-300 rounded"
@@ -111,15 +111,15 @@ function FilterSidebar({
           value={priceRange[0]}
           onChange={handleMinChange}
           min={0}
-          max={5000}
+          max={20000}
           step={100}
           className="w-full"
         />
         <input
           type="range"
-          min={0}
-          max={9999999}
-          step={100}
+          min={20000}
+          max={999999}
+          step={1000}
           value={priceRange[1]}
           onChange={handleMaxChange}
           className="w-full"

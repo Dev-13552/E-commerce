@@ -19,7 +19,7 @@ function Products() {
   const { products } = useSelector((state) => state.product);
   const [allProducts, setAllProducts] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [priceRange, setPriceRange] = useState([0, 9999999]);
+  const [priceRange, setPriceRange] = useState([0, 999999]);
   const [search, setSearch] = useState("");
   const [category, setCategory] = useState("All");
   const [brand, setBrand] = useState("All");
