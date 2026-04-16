@@ -29,7 +29,7 @@ function Profile() {
     profilePic: user?.profilePic,
     role: user?.role,
   });
-  const [error, setError] = useState("")
+  const [error, setError] = useState("");
 
   const [file, setFile] = useState(null);
 
@@ -62,9 +62,9 @@ function Profile() {
     e.preventDefault();
     console.log(updateUser);
     if (!updateUser.phoneNo || !isValidPhoneNumber(updateUser.phoneNo)) {
-    toast.error("Enter a valid phone number");
-    return;
-  }
+      toast.error("Enter a valid phone number");
+      return;
+    }
 
     const accessToken = localStorage.getItem("accessToken");
 

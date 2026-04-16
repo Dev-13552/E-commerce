@@ -9,6 +9,9 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { toast } from "sonner";
+import PhoneInput from "react-phone-number-input";
+import { isValidPhoneNumber } from "react-phone-number-input";
+import "react-phone-number-input/style.css";
 
 function UserInfo() {
   const navigate = useNavigate();
@@ -21,7 +24,18 @@ function UserInfo() {
   const [file, setFile] = useState(null);
 
   const handleChange = (e) => {
-    setUpdateUser({ ...updateUser, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    if (name == "phoneNo") {
+      const cleaned = value.replace(/[^\d+]/g, "");
+      if (cleaned.length > 10) return;
+      setUpdateUser((prev) => ({
+        ...prev,
+        phoneNo: cleaned,
+      }));
+    } else {
+      setUpdateUser({ ...updateUser, [e.target.name]: e.target.value });
+    }
   };
 
   const handleFileChange = (e) => {
@@ -37,6 +51,10 @@ function UserInfo() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(updateUser);
+    if (!updateUser.phoneNo || !isValidPhoneNumber(updateUser.phoneNo)) {
+      toast.error("Enter a valid phone number");
+      return;
+    }
 
     const accessToken = localStorage.getItem("accessToken");
 
@@ -178,18 +196,31 @@ function UserInfo() {
                 />
               </div>
               <div>
-                <Label className={"block text-sm font-medium"}>
-                  Phone Number
-                </Label>
-                <Input
-                  type="text"
-                  name="phoneNo"
-                  placeholder="Enter your Contact No"
-                  value={updateUser?.phoneNo}
-                  onChange={handleChange}
-                  className="w-full border rounded-lg px-3 py-2 mt-1"
-                />
-              </div>
+                    <Label className={"block text-sm font-medium"}>
+                      Phone Number
+                    </Label>
+                    <PhoneInput
+                      international
+                      defaultCountry="IN"
+                      value={updateUser?.phoneNo}
+                      onChange={(value) =>
+                        setUpdateUser((prev) => ({
+                          ...prev,
+                          phoneNo: value,
+                        }))
+                      }
+                      onBlur={() => {
+                        if (
+                          updateUser.phoneNo &&
+                          !isValidPhoneNumber(updateUser.phoneNo)
+                        ) {
+                          setError("Invalid phone number");
+                        } else {
+                          setError("");
+                        }
+                      }}
+                    />
+                  </div>
               <div>
                 <Label className={"block text-sm font-medium"}>Address</Label>
                 <Input
