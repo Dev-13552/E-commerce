@@ -1,5 +1,5 @@
 import mongoose, { mongo } from "mongoose";
-
+import { parsePhoneNumberFromString } from "libphonenumber-js";
 const userSchema = new mongoose.Schema({
     firstName: {
         type: String,

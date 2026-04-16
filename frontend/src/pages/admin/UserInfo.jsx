@@ -20,6 +20,7 @@ function UserInfo() {
   const dispatch = useDispatch();
   const userId = params.id;
   const [updateUser, setUpdateUser] = useState(null);
+  const [error, setError] = useState("")
 
   const [file, setFile] = useState(null);
 
