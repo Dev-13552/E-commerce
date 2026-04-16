@@ -1,11 +1,7 @@
 import React, { useState } from "react";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import PhoneInput from "react-phone-number-input";
+import { isValidPhoneNumber } from "react-phone-number-input";
+import "react-phone-number-input/style.css";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
@@ -33,11 +29,23 @@ function Profile() {
     profilePic: user?.profilePic,
     role: user?.role,
   });
+  const [error, setError] = useState("")
 
   const [file, setFile] = useState(null);
 
   const handleChange = (e) => {
-    setUpdateUser({ ...updateUser, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    if (name == "phoneNo") {
+      const cleaned = value.replace(/[^\d+]/g, "");
+      if (cleaned.length > 10) return;
+      setUpdateUser((prev) => ({
+        ...prev,
+        phoneNo: cleaned,
+      }));
+    } else {
+      setUpdateUser({ ...updateUser, [e.target.name]: e.target.value });
+    }
   };
 
   const handleFileChange = (e) => {
@@ -53,6 +61,10 @@ function Profile() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(updateUser);
+    if (!updateUser.phoneNo || !isValidPhoneNumber(updateUser.phoneNo)) {
+    toast.error("Enter a valid phone number");
+    return;
+  }
 
     const accessToken = localStorage.getItem("accessToken");
 
@@ -178,13 +190,26 @@ function Profile() {
                     <Label className={"block text-sm font-medium"}>
                       Phone Number
                     </Label>
-                    <Input
-                      type="text"
-                      name="phoneNo"
-                      placeholder="Enter your Contact No"
+                    <PhoneInput
+                      international
+                      defaultCountry="IN"
                       value={updateUser?.phoneNo}
-                      onChange={handleChange}
-                      className="w-full border rounded-lg px-3 py-2 mt-1"
+                      onChange={(value) =>
+                        setUpdateUser((prev) => ({
+                          ...prev,
+                          phoneNo: value,
+                        }))
+                      }
+                      onBlur={() => {
+                        if (
+                          updateUser.phoneNo &&
+                          !isValidPhoneNumber(updateUser.phoneNo)
+                        ) {
+                          setError("Invalid phone number");
+                        } else {
+                          setError("");
+                        }
+                      }}
                     />
                   </div>
                   <div>
@@ -240,7 +265,7 @@ function Profile() {
           </div>
         </TabsContent>
         <TabsContent value="orders">
-          <MyOrder/>
+          <MyOrder />
         </TabsContent>
       </Tabs>
     </div>

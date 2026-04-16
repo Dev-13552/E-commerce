@@ -62,6 +62,15 @@ const userSchema = new mongoose.Schema({
     },
     phoneNo: {
         type: String,
+        validate: {
+            validator: function (value) {
+                if (!value) return true; // allow empty
+
+                const phone = parsePhoneNumberFromString(value, "IN"); // default India
+                return phone && phone.isValid();
+            },
+            message: "Invalid phone number",
+        },
     },
 
 }, {timestamps: true})
