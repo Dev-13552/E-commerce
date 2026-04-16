@@ -69,7 +69,7 @@ function Login() {
     <div className="flex justify-center items-center min-h-screen bg-pink-100">
       <Card className="w-full max-w-sm">
         <CardHeader>
-          <CardTitle>Create your account</CardTitle>
+          <CardTitle>Login to your account</CardTitle>
           <CardDescription>
             Enter given details below to create your account
           </CardDescription>
