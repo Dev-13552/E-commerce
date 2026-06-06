@@ -15,7 +15,7 @@ export const sendOTPMail = async (otp, email) => {
     to: email,
     subject: "Link for changing the password",
     html: `
-            <h2>Click this link to change the password: http://localhost:5173/change-password/${email}</h2>
+            <h2>Click this link to change the password: https://e-commerce-woad-two-79.vercel.app/change-password/${email}</h2>
             `,
   };
 

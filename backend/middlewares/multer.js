@@ -7,3 +7,4 @@ export const singleUpload = multer({storage}).single("file")
 
 // Multiple upload upto 5 images
 export const multipleUpload = multer({storage}).array("files", 5)
+

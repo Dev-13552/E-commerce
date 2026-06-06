@@ -49,10 +49,12 @@ import "dotenv/config";
 
 export const verifyEmail = async (token, email) => {
   let mailTransporter = nodemailer.createTransport({
-    service: "gmail",
+    host: "smtp-relay.brevo.com",
+    port: 587,
+    secure: false, // true for 465, false for other ports
     auth: {
-      user: process.env.MAIL_USER,
-      pass: process.env.MAIL_PASS,
+      user: process.env.BREVO_LOGIN, // generated brevo user
+      pass: process.env.BREVO_SECRET_SMTP_KEY, // generated brevo password
     },
   });
 
@@ -62,7 +64,7 @@ export const verifyEmail = async (token, email) => {
     subject: "Email Verification",
     text: `Hi! There, You have recently visited our website and entered your email.
             Please follow the given link to verify your email
-            http://localhost:5173/verify/${token}
+            https://e-commerce-woad-two-79.vercel.app/verify/${token}
             Thanks`,
   };
 

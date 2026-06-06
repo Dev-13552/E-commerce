@@ -436,7 +436,6 @@ export const updateUser = async (req, res) => {
       if(profilePicPublicId){
         await cloudinary.uploader.destroy(profilePicPublicId)
       }
-
       const uploadResult = await new Promise((resolve, reject)=>{
         const stream = cloudinary.uploader.upload_stream(
           {folder: "profiles"},
