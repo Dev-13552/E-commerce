@@ -39,7 +39,19 @@ export const register = async (req, res) => {
     });
 
     // verify email part remaining
-    await verifyEmail(token, email) //Done
+    // await verifyEmail(token, email) //Done
+
+        // Generate token
+    const accessToken = jwt.sign(
+      { id: existingUser._id },
+      process.env.SECRET_KEY,
+      { expiresIn: "10d" },
+    );
+    const refreshToken = jwt.sign(
+      { id: existingUser._id },
+      process.env.SECRET_KEY,
+      { expiresIn: "30d" },
+    );
 
     newUser.token = token;
     await newUser.save();
@@ -48,6 +60,8 @@ export const register = async (req, res) => {
       success: true,
       message: "User registered successfully",
       user: newUser,
+      accessToken,
+      refreshToken,
     });
   } catch (error) {
     console.log(error)
@@ -168,12 +182,12 @@ export const login = async (req, res) => {
       });
     }
 
-    if (existingUser.isVerified === false) {
-      return res.status(400).json({
-        success: false,
-        message: "Verify your account then login",
-      });
-    }
+    // if (existingUser.isVerified === false) {
+    //   return res.status(400).json({
+    //     success: false,
+    //     message: "Verify your account then login",
+    //   });
+    // }
     
     // Generate token
     const accessToken = jwt.sign(
